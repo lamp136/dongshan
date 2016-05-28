@@ -175,4 +175,12 @@ class fenleicontroller extends Controller
       
     }
 
+    /**
+     * 获取一级类
+     */
+    public static function getFirst()
+    {
+        return DB::table('fenlei')->where('pid',0)->get();
+    }
+
 }

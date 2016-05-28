@@ -17,6 +17,10 @@
 		    </div>
 		</div>
 		@endif
+
+    @if(session('error'))
+        {{session('error')}}
+    @endif
   
     <!-- 用户名输入框 -->
       <div class="mws-form-inline">

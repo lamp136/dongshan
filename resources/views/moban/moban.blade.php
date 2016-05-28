@@ -215,6 +215,36 @@
                   </li>
                 </ul>
               </div>
+
+            <div id="mws-navigation">
+                <ul class="closed">
+                  <li>
+                    <a>
+                      <i class="icon-file"></i>商品分类管理</a>
+                    <ul class="closed">
+                      <li>
+                        <a href="/admins/cate/add">商品分类添加</a></li>
+                      <li>
+                        <a href="/admins/cate/index">商品分类列表</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+
+              <div id="mws-navigation">
+                <ul class="closed">
+                  <li>
+                    <a>
+                      <i class="icon-file"></i>商品管理</a>
+                    <ul class="closed">
+                      <li>
+                        <a href="/admins/goods/add">商品添加</a></li>
+                      <li>
+                        <a href="/admins/goods/index">商品列表</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
             </div>
             <!-- Main Container Start -->
             <div id="mws-container" class="clearfix">

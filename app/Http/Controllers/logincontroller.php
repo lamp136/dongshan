@@ -121,14 +121,36 @@ class logincontroller extends Controller
     }
 
     /**
-     * 前台登录
+     * 前台登录页面
      */
     public function flogin()
     {
         return view('login.flogin');
     }
 
-   
+    /**
+     * 前台登录操作
+     */
+   public function doflogin(Request $request)
+   {
+
+        $res = $request->only('email','password');
+        $data = DB::table('useradd')->where('email',$res['email'])->first();
+        if($data){
+            if(Hash::check($res['password'],$data['password'])){
+                session(['fid'=>$data['id']]);
+                
+                //如有有redirect就跳转到评论页面
+                $url = $request->input('redirect','/');
+                return redirect($url)->with('success','登录成功');
+            }else{
+                return back()->with('error','密码不正确');
+            }
+        }else{
+            return back()->with('error','用户名不正确');
+        }
+   }
+
     /**
      * 密码找回页面
      */

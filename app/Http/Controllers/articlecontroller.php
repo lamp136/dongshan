@@ -11,7 +11,7 @@ use Config; //引入配置文件图片地址类
 class articlecontroller extends Controller
 {
     /**
-     * 文章添加页面
+     * 后台文章添加页面
      */
    public function getAdd()
    {
@@ -20,7 +20,7 @@ class articlecontroller extends Controller
    }
 
    /**
-    * 文章添加操作
+    * 后台文章添加操作
     */
    public function postInsert(article $request)
    {
@@ -49,7 +49,7 @@ class articlecontroller extends Controller
 
 
    /**
-    * 文章列表页
+    * 后台文章列表页
     */
    public function getIndex(Request $request)
    {
@@ -67,7 +67,7 @@ class articlecontroller extends Controller
    }
 
    /**
-    * 文章修改页
+    * 后台文章修改页
     */
    public function getEdit($id)
    {
@@ -77,7 +77,7 @@ class articlecontroller extends Controller
    }
 
    /**
-    * 文章修改操作
+    * 后台文章修改操作
     */
    public function postUpdate(article $request)
    {
@@ -105,11 +105,11 @@ class articlecontroller extends Controller
    }
 
    /**
-    *  文章删除操作
+    *  后台文章删除操作
     */
+
    public function getDelete($id)
    {
-
     $data = DB::table('article')->where('id','=',$id)->first();
     
     if($data['pic']){
@@ -121,5 +121,68 @@ class articlecontroller extends Controller
      }else{
         return back()->with('error','删除失败');
      }
+   }
+
+
+   /**
+    * 文章详情页
+    */
+   public function show($id)
+   {
+    //通过联合查询
+      $res = DB::table('article')
+            ->where('article.id',$id)
+            ->select('article.*','useradd.username','fenlei.name')
+            ->join('useradd','article.user_id','=','useradd.id')
+            ->join('fenlei','article.cate_id','=','fenlei.id')
+            ->first();
+          
+
+      //文章评论
+      $comment = DB::table('comments')
+                ->where('article_id',$id)
+                ->select('comments.*','useradd.username')
+                ->join('useradd','comments.user_id','=','useradd.id')
+                ->get();
+
+      //这里的操作在moban.right里实现了
+       //获取一级类
+     //  $firstclass = fenleicontroller::getFirst();
+      
+       //获取推荐文章
+     //  $host = DB::table('article')->where('host',1)->orderBy('id','desc')->limit(5)->get();
+     
+      //最近发布的文章
+     //  $newartic = DB::table('article')->orderBy('id','desc')->limit(5)->get();
+
+      return view('article.show',[
+                'res'=>$res,
+                'comment'=>$comment
+              ]);
+
+   }
+
+   /**
+    * 前台文章列表页
+    */
+   public function listshow(Request $request)
+   {
+      $data = DB::table('article')
+              ->where(function($query) use ($request){
+                  //分类显示
+                  if($request->has('cate')){
+                    $query->where('cate_id',$request->input('cate'));
+                  }
+                  //搜索条件
+                  $query->where('title','like','%'.$request->input('keyword').'%');
+              })
+              ->select('article.*','useradd.username','fenlei.name')
+              ->join('useradd','article.user_id','=','useradd.id')
+              ->join('fenlei','article.cate_id','=','fenlei.id')
+              ->paginate(5);
+
+      
+
+      return view('article.listshow',['data'=>$data,'request'=>$request->all()]);
    }
 }

@@ -39,14 +39,21 @@
 			                          </ul>
 			                      </div>
 			                 @endif
-
+							
+							@if (session('error'))
+			                      <div class="alert alert-danger">
+			                          <ul>
+			                              <li>{{session('error')}}</li>
+			                          </ul>
+			                      </div>
+			                 @endif
 								<h4>用户登录</h4>
-								<form action="" id="" method="post">
+								<form action="/flogin" id="" method="post">
 									<div class="row">
 										<div class="form-group">
 											<div class="col-md-12">
 												<label>邮箱</label>
-												<input type="text" value="" class="form-control input-lg">
+												<input type="text" name='email' value="" class="form-control input-lg">
 											</div>
 										</div>
 									</div>
@@ -55,7 +62,7 @@
 											<div class="col-md-12">
 												<a class="pull-right" href="/forget/">找回密码</a>
 												<label>密码</label>
-												<input type="password" value="" class="form-control input-lg">
+												<input type="password" name='password' value="" class="form-control input-lg">
 											</div>
 										</div>
 									</div>
@@ -68,9 +75,11 @@
 											</span>
 										</div>
 										<div class="col-md-6">
-											<input type="submit" value="Login" class="btn btn-primary pull-right push-bottom" data-loading-text="Loading...">
+											<input type='hidden' name='redirect' value="{{\Input::get('redirect')}}">
+											<input type="submit" value="登录" class="btn btn-primary pull-right push-bottom" data-loading-text="Loading...">
 										</div>
 									</div>
+									{{csrf_field()}}
 								</form>
 							</div>
 						</div>

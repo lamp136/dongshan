@@ -18,4 +18,16 @@
 
 		return $pathname; 
 	}
+
+	//通过user_ID获取用户表的username
+	function getUsernameById($id){
+		$data = DB::table('useradd')->where('id','=',$id)->first()['username'];
+
+		return $data;
+	}
+
+	//文章列表页,统计文章评论数量
+	function commentsnum($id){
+		return DB::table('comments')->where('article_id',$id)->count();
+	}
  ?>

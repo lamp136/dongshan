@@ -195,6 +195,8 @@ return [
 
     ],
 
-    'upload_dir'=>'./images/'.date('Ymd').'/'
+    'upload_dir'=>'./images/'.date('Ymd').'/',
+
+    'webname'=>'lamp136'
 
 ];

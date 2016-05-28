@@ -11,6 +11,12 @@
 |
 */
 
+//测试路由
+ Route::get('/test',function(){
+ 	return view('moban.qiantai');
+ });
+
+
 Route::get('/', function () {
      return view('welcome');
    
@@ -24,11 +30,18 @@ Route::group(['middleware'=>'login'],function(){
 	 //后台用户管理
 	 Route::controller('admins/user','usercontroller');
 
-	 //后台商品分类 管理
+	 //后台文章分类 管理
 	 Route::controller('admins/fenlei','fenleicontroller');
 
 	//后台的文章管理
 	Route::controller('admins/article','articlecontroller');
+
+	//后台商品分类
+	Route::controller('admins/cate','goodscatecontroller');
+
+	//后台商品管理
+	 Route::controller('admins/goods','goodscontroller');
+
 
 });
 //后台登录页面
@@ -47,6 +60,9 @@ Route::post('/register','logincontroller@doregister');
 
 //前台登录
 Route::get('/flogin','logincontroller@flogin');
+
+//前台登录操作
+Route::post('/flogin','logincontroller@doflogin');
 
 //密码找回页面
 Route::get('/forget','logincontroller@forget');
@@ -69,5 +85,30 @@ Route::get('/jihuo','logincontroller@jihuo');
 Route::get('/vcode','commoncontroller@createvcode');
 
 
-//测试路由
- Route::get('/test','testcontroller@test');
+//文章详情路由
+Route::get('/post/{id}','articlecontroller@show');
+
+//文章的列表路由
+Route::get('/list','articlecontroller@listshow');
+
+//评论路由
+Route::post('/comment/insert','commentcontroller@insert')->middleware('flogin');
+
+
+//商品的详情路由
+Route::get('/goods/{id}','goodscontroller@show');
+
+//商品列表路由
+Route::get('/shop/list','goodscontroller@listshow');
+
+//加入购物车路由
+Route::post('/cart/insert','cartcontroller@insert');
+
+//购物车页面
+Route::get('/cart/index','cartcontroller@index');
+
+//删除购物车里商品路由
+Route::get('/cart/delete','cartcontroller@delete');
+
+//清除session测试
+Route::get('/clear','cartcontroller@clear');
