@@ -197,6 +197,9 @@ return [
 
     'upload_dir'=>'./images/'.date('Ymd').'/',
 
-    'webname'=>'lamp136'
+    'webname'=>'lamp136',
+
+    'pay_interface' =>'http://pay.xiaohai.com/api/deal', //支付接口
+    'account' => 'lamp136@163.com'  //网站的第三方平台账号
 
 ];

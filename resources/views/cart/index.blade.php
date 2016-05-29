@@ -17,7 +17,7 @@
 	<div class="col-md-12">
 		<div class="featured-box featured-box-secundary featured-box-cart">
 			<div class="box-content">
-				<form method="post" action="">
+				<form method="post" action="/order/insert">
 					<table cellspacing="0" class="shop_table cart">
 						<thead>
 							<tr>
@@ -61,13 +61,12 @@
 									<span class="amount">{{$v['price']}}元</span>
 								</td>
 								<td class="product-quantity">
-									<form enctype="multipart/form-data" method="post" class="cart">
 										<div class="quantity">
+											<input type="hidden" name='goods[{{$k}}][id]' value="{{$v['id']}}">
 											<input type="button" class="minus" value="-">
-											<input type="text" class="input-text qty text" title="Qty" value="{{$v['num']}}" name="quantity" min="1" step="1">
+											<input type="text" class="input-text qty text" title="Qty" value="{{$v['num']}}" name="goods[{{$k}}][num]" min="1" step="1">
 											<input type="button" class="plus" value="+">
 										</div>
-									</form>
 								</td>
 								<td class="product-subtotal">
 									<span class="amount">{{$v['total']}}</span>
@@ -77,12 +76,13 @@
 							<tr>
 								<td class="actions" colspan="6">
 									<div class="actions-continue">
-										<input type="submit" value="结算中心" name="update_cart" class="btn btn-default">
+										<input type="submit" value="结算中心"  class="btn btn-default">
 									</div>
 								</td>
 							</tr>
 						</tbody>
 					</table>
+					{{csrf_field()}}
 				</form>
 			</div>
 		</div>

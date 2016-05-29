@@ -101,14 +101,27 @@ Route::get('/goods/{id}','goodscontroller@show');
 //商品列表路由
 Route::get('/shop/list','goodscontroller@listshow');
 
-//加入购物车路由
-Route::post('/cart/insert','cartcontroller@insert');
+//限制没登录的用户
+Route::group(['middleware'=>'flogin'],function(){
 
-//购物车页面
-Route::get('/cart/index','cartcontroller@index');
+	//加入购物车路由
+	Route::post('/cart/insert','cartcontroller@insert');
 
-//删除购物车里商品路由
-Route::get('/cart/delete','cartcontroller@delete');
+	//购物车页面
+	Route::get('/cart/index','cartcontroller@index');
 
+	//删除购物车里商品路由
+	Route::get('/cart/delete','cartcontroller@delete');
+
+	//订单显示页路由
+	Route::any('/order/insert','ordercontroller@insert');
+
+	//添加地址路由
+	Route::post('/address/insert','addresscontroller@insert');
+
+	//订单表的创建
+	Route::post('/order/create','ordercontroller@create');
+
+});
 //清除session测试
 Route::get('/clear','cartcontroller@clear');

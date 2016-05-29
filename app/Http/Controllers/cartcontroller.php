@@ -38,16 +38,19 @@ class cartcontroller extends Controller
     {
         $goods = session('cart');
         $data = [];
-         foreach(session('cart') as $k=>$v){
-           $tmp = Goods::find($v['id']);
-           //数量
-           $tmp['num'] = $v['num'];
-           //总计
-           $tmp['total'] = $v['num'] * $tmp['price'];
-           $data[] = $tmp;
-         }
-        // dd($data);
-        return view('cart.index',['data'=>$data]);
+        if($goods){
+            foreach(session('cart') as $k=>$v){
+               $tmp = Goods::find($v['id']);
+               //数量
+               $tmp['num'] = $v['num'];
+               //总计
+               $tmp['total'] = $v['num'] * $tmp['price'];
+               $data[] = $tmp;
+            }
+                // dd($data);
+                return view('cart.index',['data'=>$data]);
+        }
+         
     }
 
     /**
@@ -88,8 +91,8 @@ class cartcontroller extends Controller
      */
     public function clear(Request $request)
     {
-        // $request->session()->flush();
-        dd(session('cart'));
+        $request->session()->flush();
+        // dd(session('cart'));
     }
 
 
