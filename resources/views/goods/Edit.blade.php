@@ -66,7 +66,7 @@
 				<div class="mws-form-item clearfix">
 					<ul class="mws-form-list inline">
 						<li><input type="checkbox" @if(in_array('红色',explode(',',$goods['color']))) checked @endif name='color[]' value='红色'> <label>红色</label></li>
-						<li><input type="checkbox" @if(in_array('土豪金',explode(',',$goods['color']))) checked @endif name='color[]' value="土豪金"> <label>土豪金</label></li>
+						<li><input type="checkbox" @if(in_array('土金',explode(',',$goods['color']))) checked @endif name='color[]' value="土金"> <label>土金</label></li>
 						<li><input type="checkbox" @if(in_array('黑色',explode(',',$goods['color']))) checked @endif name='color[]' value="黑色"> <label>黑色</label></li>
 						<li><input type="checkbox" @if(in_array('绿色',explode(',',$goods['color']))) checked @endif name='color[]' value="绿色"> <label>绿色</label></li>
 						<li><input type="checkbox" @if(in_array('灰色',explode(',',$goods['color']))) checked @endif name='color[]' value="灰色"> <label>灰色</label></li>
@@ -97,8 +97,12 @@
 			<div class="mws-form-row">
 				<label class="mws-form-label">商品图片</label>
 				<div class="mws-form-item">
-					<img src="{{$goods['pic']}}" width="60px">
-					<input type="file"  name='pic'>
+					@foreach(explode(',',$goods['pic']) as $k=>$v)
+					<img src="{{$v}}" width="50px">
+					@endforeach
+					<input type="file"  name='pic[]'>
+					<input type="file"  name='pic[]'>
+					<input type="file"  name='pic[]'>
 				</div>
 			</div>
 

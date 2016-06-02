@@ -13,7 +13,7 @@
 
 //测试路由
  Route::get('/test',function(){
- 	return view('moban.qiantai');
+ 	return view('test');
  });
 
 
@@ -21,6 +21,9 @@ Route::get('/', function () {
      return view('welcome');
    
 });
+
+//商城首页路由
+Route::get('/Mall','homecontroller@Mall');
 
 //路由组限制登录
 Route::group(['middleware'=>'login'],function(){
@@ -47,6 +50,9 @@ Route::group(['middleware'=>'login'],function(){
 //后台登录页面
 Route::get('/admins/login','logincontroller@login');
 
+//后台退出登录操作
+Route::get('/dologout','logincontroller@dologout');
+
 //后台登录操作
 Route::post('/admins/dologin','logincontroller@dologin');
 
@@ -63,6 +69,9 @@ Route::get('/flogin','logincontroller@flogin');
 
 //前台登录操作
 Route::post('/flogin','logincontroller@doflogin');
+
+//退出登录操作
+Route::get('/logout','logincontroller@logout');
 
 //密码找回页面
 Route::get('/forget','logincontroller@forget');
@@ -93,6 +102,9 @@ Route::get('/list','articlecontroller@listshow');
 
 //评论路由
 Route::post('/comment/insert','commentcontroller@insert')->middleware('flogin');
+
+//回复评论路由
+Route::post('/comment/message','commentcontroller@message')->middleware('flogin');
 
 
 //商品的详情路由
@@ -125,3 +137,6 @@ Route::group(['middleware'=>'flogin'],function(){
 });
 //清除session测试
 Route::get('/clear','cartcontroller@clear');
+
+//轮播图管理
+Route::controller('/lunbo','lunbocontroller');

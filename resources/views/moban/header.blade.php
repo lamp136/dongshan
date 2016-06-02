@@ -1,5 +1,13 @@
 <header id="header">
+	@if(session('fid'))
+	<div style="float:right;margin-right:50px"><a href=#>欢迎{{session('name')}}用户回来</a></div>
+	<div style="float:right;margin-right:30px"><a href="/logout?{{session('fid')}}">退出登录</a></div>
+	@else
+	<div style="float:right;margin-right:50px"><a href="/flogin">登录</a></div>
+	<div style="float:right;margin-right:30px"><a href="/register">注册</a></div>
+	@endif
 	<div class="container">
+
 		<h1 class="logo">
 			<a href="index.html">
 				<img alt="Porto" width="111" height="54" data-sticky-width="82" data-sticky-height="40" src="/qiantai/img/logo.png">
@@ -42,9 +50,11 @@
 						@endif
 					</li>
 					@endforeach
+
 				</ul>
 				
 			</nav>
 		</div>
+
 	</div>
 </header>

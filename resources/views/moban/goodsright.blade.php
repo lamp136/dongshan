@@ -32,7 +32,7 @@
 							<div class="post-image">
 								<div class="img-thumbnail">
 									<a href="/goods/{{$v['id']}}">
-										<img src="{{$v['pic']}}" width="40px" alt="">
+										<img src="{{explode(',',$v['pic'])[0]}}" width="40px" alt="">
 									</a>
 								</div>
 							</div>
@@ -53,7 +53,7 @@
 							<div class="post-image">
 								<div class="img-thumbnail">
 									<a href="/goods/{{$v['id']}}">
-										<img src="{{$v['pic']}}" width="40px" alt="">
+										<img src="{{explode(',',$v['pic'])[0]}}" width="40px" alt="">
 									</a>
 								</div>
 							</div>

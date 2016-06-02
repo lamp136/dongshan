@@ -14,6 +14,10 @@
 @endsection
 
 @section('content')
+<script type="text/javascript" src="/qiantai/jquery.js"></script>
+<script type="text/javascript" src="/qiantai/area.js"></script>
+<script type="text/javascript" src="/qiantai/location.js"></script>
+
 <div class="col-md-12">
 	<h3 class="shorter" style="margin-bottom:10px"><strong>详细信息</strong></h3>
 </div>
@@ -30,12 +34,21 @@
 					</a>
 				</h4>
 			</div>
+			@if (count($errors) > 0)
+			    <div class="alert alert-danger">
+			        <ul>
+			            @foreach ($errors->all() as $error)
+			                <li>{{ $error }}</li>
+			            @endforeach
+			        </ul>
+			    </div>
+			@endif
 			<div id="collapseOne" class="accordion-body collapse in" aria-expanded="true">
 				<div class="panel-body">
 					<form action="/order/create" id="" method="post">
-						@foreach($data as $k=>$v)
+						@foreach($address as $k=>$v)
 						<div style="background:;font-size:18px;margin-top:10px">
-							<input  type="radio" name='address' value="{{$v['id']}}">姓名:{{$v['name']}}&nbsp地址:{{$v['sheng']}}--{{$v['shi']}}--{{$v['xian']}}--{{$v['jiedao']}}
+							<input  type="radio" name='address' value="{{$v['id']}}">姓名:{{$v['name']}}&nbsp地址:<span class="addr" aid="{{$v['sheng']}},{{$v['shi']}},{{$v['xian']}}"></span>--{{$v['jiedao']}}
 						</div>
 						@endforeach
 						<div style="margin-top:50px;">
@@ -71,18 +84,9 @@
 						街道地址:<input type="text" name='jiedao' class="form-control" id="inputDefault">
 
 						<div style="margin-top:15px">
-							<select class="form-control input-sm mb-md" name="sheng" style="width:150px;float:left">
-								<option>北京市</option>
-								
-							</select>
-							<select class="form-control input-sm mb-md" name="shi" style="width:150px;float:left">
-								<option>北京市</option>
-								
-							</select>
-							<select class="form-control input-sm mb-md" name="xian" style="width:150px;float:left">
-								<option>朝阳区</option>
-								<option>东城区</option>
-							</select>
+							<select id="loc_province" name="sheng" style="width:80px;"></select>
+							<select id="loc_city" name='shi' style="width:100px;"></select>
+							<select id="loc_town" name='xian' style="width:120px;"></select>
 						</div>
 
 						<div class="row">
@@ -100,4 +104,34 @@
 </div>
 
 </div>
+<script type="text/javascript">
+	$(document).ready(function() {
+		showLocation();
+	});
+		//通过数字ID获取省市县的名称
+		$('.addr').each(function(){
+			//获取aid的属性
+			var aid = $(this).attr('aid');
+
+			//调用封装好的方法
+			var names = getaddr(aid);
+
+			$(this).html(names);
+		})
+
+		function getaddr(aid){
+			var arr = aid.split(',');
+
+			var location = new Location;
+			var ls = location.items; //所有的地址
+
+			var sheng = ls['0'][arr[0]];
+			var shi = ls['0,'+arr[0]][arr[1]];
+			var xian = ls['0,'+arr[0]+','+arr[1]][arr[2]];
+
+			return sheng+'--'+shi+'--'+xian;
+
+		}
+	
+</script>
 @endsection

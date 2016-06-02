@@ -45,7 +45,13 @@
 	            <td class=" sorting_1">{{$v['id']}}</td>
 	            <td class=" ">{{$v['title']}}</td>
 	            <td class=" ">{{$v['price']}}</td>
-	            <td class=" "><img src="{{$v['pic']}}" width='80'></td>
+              
+	            <td class=" ">
+                @foreach(explode(',',$v['pic']) as $a=>$b)
+                <img src="{{$b}}" width='50'>
+                @endforeach
+              </td>
+
 	            <td class=" ">
 	            <!-- 修改和删除的连接 -->
 	            <a href="/admins/goods/edit/{{$v['id']}}" style='color:black;font-size:20px'><i class="icon-pencil-2"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;

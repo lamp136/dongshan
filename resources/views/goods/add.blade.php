@@ -66,7 +66,7 @@
 				<div class="mws-form-item clearfix">
 					<ul class="mws-form-list inline">
 						<li><input type="checkbox" name='color[]' value='红色'> <label>红色</label></li>
-						<li><input type="checkbox" name='color[]' value="土豪金"> <label>土豪金</label></li>
+						<li><input type="checkbox" name='color[]' value="土金"> <label>土金</label></li>
 						<li><input type="checkbox" name='color[]' value="黑色"> <label>黑色</label></li>
 						<li><input type="checkbox" name='color[]' value="绿色"> <label>绿色</label></li>
 						<li><input type="checkbox" name='color[]' value="灰色"> <label>灰色</label></li>
@@ -97,7 +97,9 @@
 			<div class="mws-form-row">
 				<label class="mws-form-label">商品图片</label>
 				<div class="mws-form-item">
-					<input type="file"  name='pic'>
+					<input type="file" name='pic[]'>
+					<input type="file" name ="pic[]">
+					<input type="file" name ="pic[]">
 				</div>
 			</div>
 

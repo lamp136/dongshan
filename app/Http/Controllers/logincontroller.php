@@ -35,12 +35,25 @@ class logincontroller extends Controller
         if(Hash::check($request->input('password'),$res['password'])){
             //把ID存入session
             session(['id'=>$res['id']]);
+            $request->session()->put('name',$res['username']);
             
+            
+
             return redirect('/admins/')->with('success','登录成功');
         }else{
             return back()->with('error','登录失败');
         }
     }
+     
+    /**
+      * 后台退出登录操作
+      */ 
+   public function dologout(Request $request)
+   {
+         $request->session()->forget('id');
+        
+         return redirect('/admins/login');
+   }
 
     
     /**
@@ -111,7 +124,7 @@ class logincontroller extends Controller
             $tmp['token'] = str_random(50);
             
             if(DB::table('useradd')->where('id',$id)->update($tmp)){
-                return redirect('/')->with('success','激活成功');
+                return redirect('/Mall')->with('success','激活成功');
             }else{
                 return redirect('/')->with('error','激活失败');
             }
@@ -139,9 +152,10 @@ class logincontroller extends Controller
         if($data){
             if(Hash::check($res['password'],$data['password'])){
                 session(['fid'=>$data['id']]);
-                
+
+                $request->session()->put('email',$res['email']);
                 //如有有redirect就跳转到评论页面
-                $url = $request->input('redirect','/');
+                $url = $request->input('redirect',"/Mall");
                 return redirect($url)->with('success','登录成功');
             }else{
                 return back()->with('error','密码不正确');
@@ -149,6 +163,16 @@ class logincontroller extends Controller
         }else{
             return back()->with('error','用户名不正确');
         }
+   }
+
+   /**
+    * 前台退出登录操作
+    */
+   public function logout(Request $request)
+   {
+         $request->session()->forget('fid');
+        
+         return redirect('/flogin');
    }
 
     /**

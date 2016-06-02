@@ -7,7 +7,7 @@ use App\Models\address; //地址表模型
 use App\Models\order;//订单表模型
 use App\Models\Goods;//商品表模型
 use App\Models\OrderGoods;//
-
+use App\Http\Requests\ordercreate;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -18,19 +18,20 @@ class ordercontroller extends Controller
      */
     public function insert(Request $request)
     {
+        // dd($request->only('goods'));
         //把商品信息存入session中
         session(['order_goods'=>$request->only('goods')['goods']]);
 
-        //通过用户的id获取用户地址信息
-        $data = address::where('user_id',session('fid'))->get();
+        //通过用户的id获取用户收货地址信息
+        $address = address::where('user_id',session('fid'))->get();
 
-        return view('order.address',['data'=>$data]);
+        return view('order.address',['address'=>$address]);
     }
 
     /**
      * 订单表的插入操作
      */
-    public function create(Request $request)
+    public function create(ordercreate $request)
     {
         // dd(session('order_goods'));
         // dd($this->total());
@@ -46,6 +47,7 @@ class ordercontroller extends Controller
             //插入order_goods表数据
             $data=[];
             $goods=[];
+            // if(empty(session('order_goods'))) return false;
             foreach(session('order_goods') as $k=>$v){
                 //插入order_goods表里的内容
                 $tmp['goods_id'] = $v['id'];

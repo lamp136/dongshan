@@ -14,29 +14,25 @@
 @endsection
 
 @section('content')
+
 <div class="col-md-9">
 
 	<div class="row">
 		<div class="col-md-6">
-
-			<div class="owl-carousel" data-plugin-options='{"items": 1, "autoHeight": true}'>
-				<div>
-					<div class="thumbnail">
-						<img alt="" class="img-responsive img-rounded" src="{{$goods['pic']}}">
-					</div>
-				</div>
-			</div>
-
-		</div>
+	      <div class="owl-carousel" data-plugin-options='{"items": 1, "autoHeight": true}'>
+	      @foreach(explode(',',$goods['pic']) as $k=>$v)
+	        <div>
+	          <div class="thumbnail">
+	            <img alt="" style="width:400px;height:400px" class="img-responsive img-rounded" src="{{$v}}">
+	          </div>
+	        </div>
+	      @endforeach
+	      </div>
+  		</div>
 
 		<div class="col-md-6">
-
 			<div class="summary entry-summary">
-
 				<h2 class="shorter"><strong>{{$goods['title']}}</strong></h2>
-
-				
-
 				<div title="Rated 5.00 out of 5" class="star-rating">
 					<span style="width:100%"><strong class="rating">5.00</strong> out of 5</span>
 				</div>
@@ -55,6 +51,22 @@
 					<input type="hidden" name='id' value="{{$goods['id']}}">
 					{{csrf_field()}}
 					<button  class="btn btn-primary btn-icon">加入购物车</button>
+
+					<div style="width:400px;float:left;margin-top:20px">
+						<div style="width:40px;height:40px;float:left;font-size:18px;margin-top:5px">颜色</div>
+						@foreach($color as $k=>$v)
+						<div class='colors' style="width:40px;height:40px;border:1px solid #ddd;float:left;line-height:40px;text-align:center;background:#F4F4F4;margin-left:20px">{{$v}}</div>
+						@endforeach
+						<div style="clear:both;"></div>
+
+						<div style="margin-top:25px;float:left;font-size:18px">尺寸</div>
+							<div style="float:left;margin-top:25px;margin-left:20px;font-size:16px">
+							@foreach($size as $k=>$v)
+								<input type='radio' name='size' value="{{$v}}">{{$v}}
+							@endforeach
+							</div>
+						
+					</div>
 				</form>
 			</div>
 		</div>
@@ -182,7 +194,9 @@
 								<span class="product-thumb-info-act-left"><em>View</em></span>
 								<span class="product-thumb-info-act-right"><em><i class="fa fa-plus"></i> Details</em></span>
 							</span>
-							<img alt="" class="img-responsive" src="{{$v['pic']}}">
+							
+							<img alt="" class="img-responsive" src="{{explode(',',$v['pic'])[0]}}">
+							
 						</span>
 					</a>
 					<span class="product-thumb-info-content">
@@ -231,5 +245,12 @@
 				$('input[name=num]').val(num);
 			}
 		})
+
+	//颜色的选择
+	$('.colors').click(function(){
+
+		$(this).css('border','2px solid red');
+		$(this).siblings('.colors').css('border','1px solid #ddd');
+	})
 	</script>
 @endsection

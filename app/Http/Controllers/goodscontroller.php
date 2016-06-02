@@ -25,13 +25,27 @@ class goodscontroller extends Controller
     public function postInsert(Request $request)
     {
         //实例化模型
+        // dd($request->all());
         $goods = new Goods;
 
+        $data = $request->all();
+        $path='';
+        //文件上传
         if($request->hasFile('pic')){
-            $filename = md5(time().rand(1111,9999)).'.'.$request->file('pic')->getClientOriginalExtension();
-            $request->file('pic')->move(Config::get('app.upload_dir'),$filename);
+            foreach($data['pic'] as $k=>$v){
 
-          $goods->pic = trim(Config::get('app.upload_dir').$filename,'.');  
+                $filename = md5(time().rand(1111,9999)).'.'.$data['pic'][$k]->getClientOriginalExtension();
+                $data['pic'][$k]->move(Config::get('app.upload_dir'),$filename);
+
+                $paths = trim(Config::get('app.upload_dir').$filename,'.');
+                $path.=$paths.',';
+            }
+            
+            
+            //$filename = md5(time().rand(1111,9999)).'.'.$request->file('pic')->getClientOriginalExtension();
+            //$request->file('pic')->move(Config::get('app.upload_dir'),$filename);
+
+           $goods->pic = rtrim($path,',');  
 
         }
         
@@ -84,14 +98,23 @@ class goodscontroller extends Controller
     public function postUpdate(Request $request)
     {
         $goods = Goods::find($request->input('id'));
-        
+
+        $data = $request->all();
+        $path='';
         if($request->hasFile('pic')){
-            unlink('.'.$goods['pic']);
-            $filename = md5(time().rand(1111,9999)).'.'.$request->file('pic')->getClientOriginalExtension();
-            $request->file('pic')->move(Config::get('app.upload_dir'),$filename);
+           // unlink('.'.$goods['pic']);
+            foreach($data['pic'] as $k=>$v){
 
-          $goods->pic = trim(Config::get('app.upload_dir').$filename,'.');  
+                $filename = md5(time().rand(1111,9999)).'.'.$data['pic'][$k]->getClientOriginalExtension();
+                $data['pic'][$k]->move(Config::get('app.upload_dir'),$filename);
 
+                $paths = trim(Config::get('app.upload_dir').$filename,'.');
+                $path.=$paths.',';
+            }
+            // $filename = md5(time().rand(1111,9999)).'.'.$request->file('pic')->getClientOriginalExtension();
+            // $request->file('pic')->move(Config::get('app.upload_dir'),$filename);
+            // $goods->pic = trim(Config::get('app.upload_dir').$filename,'.');  
+            $goods->pic = rtrim($path,',');  
           
         }
         
@@ -117,7 +140,10 @@ class goodscontroller extends Controller
     public function getDelete($id)
     {
         $goods = Goods::find($id);
-        unlink('.'.$goods['pic']);
+        foreach(explode(',',$goods['pic']) as $k=>$v){
+             unlink('.'.$v);
+        }
+       
         if($goods->delete()){
 
             return redirect('/admins/goods/index')->with('success','删除成功');

@@ -51,7 +51,7 @@
 								</td>
 								<td class="product-thumbnail">
 									<a href="shop-product-sidebar.html">
-										<img width="100" height="100" alt="" class="img-responsive" src="{{$v['pic']}}">
+										<img width="100" height="100" alt="" class="img-responsive" src="{{explode(',',$v['pic'])[0]}}">
 									</a>
 								</td>
 								<td class="product-name">

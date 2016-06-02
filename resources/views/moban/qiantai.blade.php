@@ -12,8 +12,9 @@
 		<!-- Mobile Metas -->
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-		<!-- Web Fonts  -->
-
+		<!-- 轮播图 -->
+		<link rel="stylesheet" type="text/css" href="/lunbo/css/lanrenzhijia.css">
+		<!-- end -->
 		<!-- Vendor CSS -->
 		<link rel="stylesheet" href="/qiantai/vendor/bootstrap/bootstrap.css">
 		<link rel="stylesheet" href="/qiantai/vendor/fontawesome/css/font-awesome.css">
@@ -61,7 +62,7 @@
 							<div class="col-md-12">
 								<ul class="breadcrumb">
 
-									<li><a href="#">@yield('home')</a></li>
+									<li><a href="/Mall">@yield('home')</a></li>
 									<li class="active">@yield('blog')</li>
 								</ul>
 							</div>
@@ -172,11 +173,11 @@
     </div>
   </div>
 </div>
-@endif
-	<script type="text/javascript">
-	$('.modal').modal();
-	</script>
 
+	<script type="text/javascript">
+	// $('.modal').modal();
+	</script>
+@endif
 	@yield('myjs')
 	</body>
 </html>

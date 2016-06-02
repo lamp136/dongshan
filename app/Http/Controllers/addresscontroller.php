@@ -6,14 +6,15 @@ use Illuminate\Http\Request;
 use App\Models\address;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
+use App\Http\Requests\yzaddress;
 class addresscontroller extends Controller
 {
     /**
      * 地址的添加
      */
-    public function insert(Request $request)
+    public function insert(yzaddress $request)
     {
+
         $address = new address();
 
         $address->sheng = $request->sheng;

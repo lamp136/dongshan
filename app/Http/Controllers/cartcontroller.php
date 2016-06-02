@@ -47,10 +47,9 @@ class cartcontroller extends Controller
                $tmp['total'] = $v['num'] * $tmp['price'];
                $data[] = $tmp;
             }
-                // dd($data);
-                return view('cart.index',['data'=>$data]);
+                // dd($data);       
         }
-         
+         return view('cart.index',['data'=>$data]);
     }
 
     /**

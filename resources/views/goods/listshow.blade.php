@@ -39,7 +39,7 @@
 								<span class="product-thumb-info-act-left"><em>View</em></span>
 								<span class="product-thumb-info-act-right"><em><i class="fa fa-plus"></i> Details</em></span>
 							</span>
-							<img alt="" class="img-responsive" src="{{$v['pic']}}">
+							<img alt="" class="img-responsive" src="{{explode(',',$v['pic'])[0]}}" width="260px" height="295px">
 						</span>
 					</a>
 					<span class="product-thumb-info-content">

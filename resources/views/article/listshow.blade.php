@@ -50,7 +50,7 @@
 				<div class="col-md-12">
 					<div class="post-meta">
 						<span><i class="fa fa-calendar"></i>{{substr($v['created_at'],0,10)}}</span>
-						<span><i class="fa fa-user"></i> By <a href="#">{{$v['username']}}</a> </span>
+						<span><i class="fa fa-user"></i> By <a href="#">{{$v['email']}}</a> </span>
 						<span><i class="fa fa-tag"></i> <a href="#">{{$v['name']}}</a></span>
 						<span><i class="fa fa-comments"></i> <a href="#">{{commentsnum($v['id'])}}评论</a></span>
 						<a href="/post/{{$v['id']}}" class="btn btn-xs btn-primary pull-right">更多</a>

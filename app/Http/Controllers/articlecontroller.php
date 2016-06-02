@@ -132,7 +132,7 @@ class articlecontroller extends Controller
     //通过联合查询
       $res = DB::table('article')
             ->where('article.id',$id)
-            ->select('article.*','useradd.username','fenlei.name')
+            ->select('article.*','useradd.email','fenlei.name')
             ->join('useradd','article.user_id','=','useradd.id')
             ->join('fenlei','article.cate_id','=','fenlei.id')
             ->first();
@@ -141,10 +141,17 @@ class articlecontroller extends Controller
       //文章评论
       $comment = DB::table('comments')
                 ->where('article_id',$id)
-                ->select('comments.*','useradd.username')
+                ->select(DB::raw('comments.*,useradd.email,concat(comments.path,",",comments.id) as paths'))
                 ->join('useradd','comments.user_id','=','useradd.id')
+                ->orderBy('paths')
                 ->get();
 
+        //判断如过不是一级评论就获取一级评论的名字拼接
+        foreach($comment as $k=>$v){
+            if($v['pid']!=0){
+              $comment[$k]['email'] = $v['email'].'回复'.$v['pidname'];
+            }
+        }
       //这里的操作在moban.right里实现了
        //获取一级类
      //  $firstclass = fenleicontroller::getFirst();
@@ -154,13 +161,15 @@ class articlecontroller extends Controller
      
       //最近发布的文章
      //  $newartic = DB::table('article')->orderBy('id','desc')->limit(5)->get();
-
+     
       return view('article.show',[
                 'res'=>$res,
                 'comment'=>$comment
+            
               ]);
 
    }
+
 
    /**
     * 前台文章列表页
@@ -176,7 +185,7 @@ class articlecontroller extends Controller
                   //搜索条件
                   $query->where('title','like','%'.$request->input('keyword').'%');
               })
-              ->select('article.*','useradd.username','fenlei.name')
+              ->select('article.*','useradd.email','fenlei.name')
               ->join('useradd','article.user_id','=','useradd.id')
               ->join('fenlei','article.cate_id','=','fenlei.id')
               ->paginate(5);

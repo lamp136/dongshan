@@ -84,33 +84,36 @@
                           </ul>
                       </div>
                   @endif
+                  
+                  
+
                       <h4>注册账号</h4>
-                      <form action="/register" id="" method="post">
+                      <form action="/register" id="sub" method="post">
                         <div class="row">
                           <div class="form-group">
                             <div class="col-md-12">
-                              <label>邮箱</label>
-                              <input type="text" name='email' value="" class="form-control input-lg"></div>
+                              <label>邮箱</label><span style="margin-left:150px"></span>
+                              <input type="text" name='email' value="" class="form-control input-lg" focus="请输入邮箱"></div>
                           </div>
                         </div>
                         <div class="row">
                           <div class="form-group">
                             <div class="col-md-12">
-                              <label>密码</label>
-                              <input type="password" name='password' value="" class="form-control input-lg"></div>
+                              <label>密码</label><span style="margin-left:150px"></span>
+                              <input type="password" name='password' value="" class="form-control input-lg" focus="请输入6-18位密码"></div>
                           </div>
                         </div>
                         <div class="row">
                           <div class="form-group">
                             <div class="col-md-12">
-                              <label>确认密码</label>
-                              <input type="password" name="repassword" value="" class="form-control input-lg"></div>
+                              <label>确认密码</label><span style="margin-left:120px"></span>
+                              <input type="password" name="repassword" value="" class="form-control input-lg" focus="请在输入一次密码"></div>
                           </div>
                         </div>
                         <div class="row">
                           <div class="form-group">
                             <div class="col-md-6">
-                              <label>验证码</label>
+                              <label>验证码</label><span></span>
                               <input type="text" name="vcode" value="" class="form-control input-lg"></div>    
                               <div class='col-md-6' style='padding-top:30px;'>
                                 <img src="{{ URL('/vcode') }}" onclick="this.src=this.src+'?a=1'">
@@ -193,6 +196,82 @@
     })();
     </script>
     -->
-  </body>
+    <script type="text/javascript">
+        var EMAIL = false;
+        var PASSWORD = false;
+        var REPASSWORD = false;
+        //获取焦点
+        $('input').focus(function(){
+          var focu = $(this).attr('focus');
+          $(this).siblings('span').html(focu).css('color','blue').show();
+          
+        })
 
+        //失去焦点(邮箱验证)
+        $('input[name=email]').blur(function(){
+           // 获取输入的值
+           var email = $(this).val();
+
+            var reg = /^\w{6,18}@\w{2,10}\.(com|cn)$/;
+
+            if(reg.test(email)){
+                 $(this).siblings('span').css('display','none');
+                 EMAIL = true;
+            }else{
+                var error = '请输入正确的邮箱格式';
+                
+                $(this).siblings('span').html(error).css('color','red');
+                EMAIL = false;
+            }
+        })
+
+        //密码验证
+        $('input[name=password]').blur(function(){
+            var pass = $(this).val();
+            var reg = /^\w{4,18}$/;
+            if(reg.test(pass)){
+              $(this).siblings('span').css('display','none');
+              PASSWORD = true;
+
+            }else{
+              var error = '请输入正确的密码格式';
+                
+                $(this).siblings('span').html(error).css('color','red');
+                PASSWORD = false;
+            }
+        })
+
+        //确认密码验证
+        $('input[name=repassword]').blur(function(){
+            var repass = $(this).val();
+            var pass = $('input[name=password]').val();
+
+            if(repass==pass){
+              $(this).siblings('span').css('display','none');
+              REPASSWORD = true;
+            }else{
+              var error = '两次密码输入的不一致';
+                
+                $(this).siblings('span').html(error).css('color','red');
+                REPASSWORD = false;
+            }
+        })
+
+        //表单提交事件 
+        $('#sub').submit(function(){
+            $('input').trigger('blur');
+
+            if(EMAIL && PASSWORD && REPASSWORD){
+              return true;
+            }else{
+              return false;
+            }
+        })
+
+
+
+
+    </script>
+
+  </body>
 </html>

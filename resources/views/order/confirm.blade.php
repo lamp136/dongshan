@@ -58,7 +58,7 @@
 							<tr class="cart_table_item">
 								<td class="product-thumbnail">
 									<a href="shop-product-sidebar.html">
-										<img width="100" height="100" alt="" class="img-responsive" src="{{$v['pic']}}">
+										<img width="100" height="100" alt="" class="img-responsive" src="{{explode(',',$v['pic'])[0]}}">
 									</a>
 								</td>
 								<td class="product-name">
@@ -112,10 +112,27 @@
 	</div>
 
 	<div class="actions-continue">
-		<a href="{{config(app.pay_interface)}}?to={{config(app.account)}}&money={{$totals}}&order_id={{$order_num}}&info=lamp136官网&return_url=http://a.com/return_url" class="btn btn-lg btn-primary push-top">确认购买</a>
+		<a href="{{config('app.pay_interface')}}?to={{config('app.account')}}&money={{$totals}}&order_id={{$order_num}}&info=lamp136官网&return_url=http://a.com/return_url" class="btn btn-lg btn-primary push-top">确认购买</a>
 	</div>
+</div>
 
+<div class="col-md-3">
+	<h4>商品总计</h4>
+	<table cellspacing="0" class="cart-totals">
+		<tbody>
+			<tr class="total">
+				<th>
+					<strong>总计</strong>
+				</th>
+				<td>
+					<strong><span class="amount">{{$totals}}</span></strong>
+				</td>
+			</tr>
+		</tbody>
+	</table>
 </div>
 
 </div>
 @endsection
+
+

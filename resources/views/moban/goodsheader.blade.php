@@ -1,4 +1,12 @@
 <header id="header">
+	@if(session('fid'))
+		<div style="float:right;margin-right:50px"><a href=#>欢迎{{session('email')}}用户回来</a></div>
+		<div style="float:right;margin-right:30px"><a href="/logout">退出登录</a></div>
+	@else
+		<div style="float:right;margin-right:50px"><a href="/flogin">登录</a></div>
+		<div style="float:right;margin-right:30px"><a href="/register">注册</a></div>
+	@endif
+
 	<div class="container">
 		<h1 class="logo">
 			<a href="index.html">
@@ -42,8 +50,8 @@
 						@endif
 					</li>
 					@endforeach
+					<div style="float:left;margin-top:8px" ><a href="/cart/index">购物车</a></div>
 				</ul>
-				
 			</nav>
 		</div>
 	</div>
