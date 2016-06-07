@@ -36,7 +36,7 @@ class articlecontroller extends Controller
             $pic = Config::get('app.upload_dir').$pathname;
             $data['pic'] = trim($pic,'.');
         }
-        $data['user_id'] = 1;
+        $data['user_id'] = session('id');
         $data['created_at'] = date('Y-m-d H:i:s');
 
         $res = DB::table('article')->insert($data);
@@ -69,8 +69,9 @@ class articlecontroller extends Controller
    /**
     * 后台文章修改页
     */
-   public function getEdit($id)
+   public function getEdit(Request $request)
    {
+        $id = $request->input('id');
         $fenlei = fenleicontroller::getCate();
         $content = DB::table('article')->where('id','=',$id)->first();
         return view('article.Edit',['content'=>$content,'fenlei'=>$fenlei]);
@@ -108,8 +109,10 @@ class articlecontroller extends Controller
     *  后台文章删除操作
     */
 
-   public function getDelete($id)
+   public function getDelete(Request $request)
    {
+    $id = $request->input('id');
+
     $data = DB::table('article')->where('id','=',$id)->first();
     
     if($data['pic']){
@@ -129,15 +132,16 @@ class articlecontroller extends Controller
     */
    public function show($id)
    {
+
     //通过联合查询
       $res = DB::table('article')
             ->where('article.id',$id)
             ->select('article.*','useradd.email','fenlei.name')
-            ->join('useradd','article.user_id','=','useradd.id')
-            ->join('fenlei','article.cate_id','=','fenlei.id')
+            ->leftjoin('useradd','article.user_id','=','useradd.id')
+            ->leftjoin('fenlei','article.cate_id','=','fenlei.id')
             ->first();
           
-
+      
       //文章评论
       $comment = DB::table('comments')
                 ->where('article_id',$id)
@@ -186,11 +190,11 @@ class articlecontroller extends Controller
                   $query->where('title','like','%'.$request->input('keyword').'%');
               })
               ->select('article.*','useradd.email','fenlei.name')
-              ->join('useradd','article.user_id','=','useradd.id')
-              ->join('fenlei','article.cate_id','=','fenlei.id')
+              ->leftjoin('useradd','article.user_id','=','useradd.id')
+              ->leftjoin('fenlei','article.cate_id','=','fenlei.id')
               ->paginate(5);
 
-      
+      // dd($data);
 
       return view('article.listshow',['data'=>$data,'request'=>$request->all()]);
    }

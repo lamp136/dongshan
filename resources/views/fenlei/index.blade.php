@@ -37,9 +37,9 @@
 	            <td class=" ">{{$v['status']}}</td>
 	            <td class=" ">
 	            <!-- 修改和删除和添加分类 -->
-	            <a href="/admins/fenlei/edit/{{$v['id']}}" style='color:black;font-size:20px'><i class="icon-pencil-2"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
-	            <a href="/admins/fenlei/delete/{{$v['id']}}" style='color:black;font-size:20px'><i class="icon-trash"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
-	            <a href="/admins/fenlei/add/{{$v['id']}}" style='color:black;font-size:20px'><i class="icon-plus"></i></a>
+	            <a href="/admins/fenlei/edit?id={{$v['id']}}" style='color:black;font-size:20px'><i class="icon-pencil-2"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
+	            <a href="/admins/fenlei/delete?id={{$v['id']}}" style='color:black;font-size:20px'><i class="icon-trash"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
+	            <a href="/admins/fenlei/add?id={{$v['id']}}" style='color:black;font-size:20px'><i class="icon-plus"></i></a>
 	            </td>
 	          </tr>
 	        @endforeach

@@ -48,8 +48,8 @@
 	            <td class=" "><img src="{{$v['pic']}}" width="80px"></td>
 	            <td class=" ">
 	            <!-- 修改和删除的连接 -->
-	            <a href="/lunbo/edit/{{$v['id']}}" style='color:black;font-size:20px'><i class="icon-pencil-2"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
-	            <a href="/lunbo/delete/{{$v['id']}}" style='color:black;font-size:20px'><i class="icon-trash"></i></a>
+	            <a href="/lunbo/edit?id={{$v['id']}}" style='color:black;font-size:20px'><i class="icon-pencil-2"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
+	            <a href="/lunbo/delete?id={{$v['id']}}" style='color:black;font-size:20px'><i class="icon-trash"></i></a>
 	            </td>
 	          </tr>
 	        @endforeach

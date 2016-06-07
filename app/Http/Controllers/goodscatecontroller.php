@@ -46,9 +46,9 @@ class goodscatecontroller extends Controller
     /**
      * 商品分类的添加页面
      */
-    public function getAdd($id='')
+    public function getAdd(Request $request)
     {
-        
+        $id = $request->input('id');
         $cate = self::getCate();
         return view('goodscate.add',['cate'=>$cate,'id'=>$id]);
     }
@@ -99,9 +99,9 @@ class goodscatecontroller extends Controller
     /**
      * 商品分类修改页面
      */
-    public function getEdit($id)
+    public function getEdit(Request $request)
     {
-
+        $id = $request->input('id');
          $res = goodscate::where('id',$id)->first();
          $cate = self::getCate();
         return view('goodscate.edit',['cate'=>$cate,'res'=>$res]);
@@ -139,8 +139,9 @@ class goodscatecontroller extends Controller
     /**
      * 商品分类的删除
      */
-    public function getDelete($id)
+    public function getDelete(Request $request)
     {
+        $id = $request->input('id');
         $goods = goodscate::findOrFail($id);
 
         if(goodscate::where('pid',$id)->first()){

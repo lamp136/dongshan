@@ -61,8 +61,9 @@ class lunbocontroller extends Controller
     /**
      * 轮播图修改页
      */
-    public function getEdit($id)
+    public function getEdit(Request $request)
     {
+        $id = $request->input('id');
         $data = lunbo::findOrfail($id);
         return view('lunbo.Edit',['data'=>$data]);
     }
@@ -97,8 +98,9 @@ class lunbocontroller extends Controller
     /**
      * 删除操作
      */
-    public function getDelete($id)
+    public function getDelete(Request $request)
     {
+        $id = $request->input('id');
         $lunbo = lunbo::findOrfail($id);
         unlink('.'.$lunbo['pic']);
         if($lunbo->delete()){

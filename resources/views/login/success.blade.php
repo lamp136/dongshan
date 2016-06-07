@@ -355,7 +355,7 @@
                 <div class="page-not-found-main">
                 @section('str')
                   <h3>恭喜你注册成功了!请前往邮箱激活账号
-                    </h3>
+                  </h3><a href='/flogin'>返回登录</a>
                   @show
                 </div>
               </div>

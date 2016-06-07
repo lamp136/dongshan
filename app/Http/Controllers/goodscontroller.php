@@ -82,8 +82,9 @@ class goodscontroller extends Controller
     /**
      * 商品修改页
      */
-    public function getEdit($id)
+    public function getEdit(Request $request)
     {
+        $id = $request->input('id');
         //商品分类
         $cate = goodscatecontroller::getCate();
         //通过id查询商品信息
@@ -137,8 +138,9 @@ class goodscontroller extends Controller
     /**
      * 商品的删除
      */
-    public function getDelete($id)
+    public function getDelete(Request $request)
     {
+        $id = $request->input('id');
         $goods = Goods::find($id);
         foreach(explode(',',$goods['pic']) as $k=>$v){
              unlink('.'.$v);

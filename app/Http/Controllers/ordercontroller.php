@@ -18,13 +18,16 @@ class ordercontroller extends Controller
      */
     public function insert(Request $request)
     {
-        // dd($request->only('goods'));
+         // dd($request->only('goods'));
         //把商品信息存入session中
-        session(['order_goods'=>$request->only('goods')['goods']]);
-
+        if($request->only('goods')['goods']){
+            session(['order_goods'=>$request->only('goods')['goods']]);
+        }
+        
+        // dd(session('order_goods'));
         //通过用户的id获取用户收货地址信息
         $address = address::where('user_id',session('fid'))->get();
-
+        
         return view('order.address',['address'=>$address]);
     }
 
@@ -33,7 +36,8 @@ class ordercontroller extends Controller
      */
     public function create(ordercreate $request)
     {
-        // dd(session('order_goods'));
+
+       // dd(session('order_goods'));
         // dd($this->total());
         $order = new order();
 
@@ -47,14 +51,15 @@ class ordercontroller extends Controller
             //插入order_goods表数据
             $data=[];
             $goods=[];
-            // if(empty(session('order_goods'))) return false;
+             // if(empty(session('order_goods'))) return false;
+
             foreach(session('order_goods') as $k=>$v){
                 //插入order_goods表里的内容
                 $tmp['goods_id'] = $v['id'];
                 $tmp['num'] = $v['num'];
                 $tmp['order_id'] = $order->id;
                 $data[]=$tmp;
-
+                // dd($data);
                 //获取商品的信息在前台遍历的
                 $cmp = Goods::find($v['id']);
                 $cmp['num'] = $v['num'];

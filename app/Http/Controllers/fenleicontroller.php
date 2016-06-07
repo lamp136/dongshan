@@ -57,9 +57,9 @@ class fenleicontroller extends Controller
     /**
      * 添加分类
      */
-    public function getAdd($id='')
+    public function getAdd(Request $request)
     {
-        
+        $id = $request->input('id');
         //获取数据
          $data = self::getCate();
         return view('fenlei.add',['cate'=>$data,'id'=>$id]);
@@ -109,8 +109,10 @@ class fenleicontroller extends Controller
     /**
      * 分类修显示改页
      */
-    public function getEdit($id)
+    public function getEdit(Request $request)
     {
+        $id = $request->input('id');
+
         $res = DB::table('fenlei')->where('id',$id)->first();
         $name = $res['name'];
         $paths = $res['pid'];
@@ -153,8 +155,9 @@ class fenleicontroller extends Controller
     /**
      * 删除分类
      */
-    public function getDelete($id)
+    public function getDelete(Request $request)
     {
+        $id = $request->input('id');
         $res = DB::table('fenlei')->select('pid')->get();
          
          // var_dump($res);die;

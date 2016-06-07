@@ -1,6 +1,6 @@
 <header id="header">
 	@if(session('fid'))
-	<div style="float:right;margin-right:50px"><a href=#>欢迎{{session('name')}}用户回来</a></div>
+	<div style="float:right;margin-right:50px"><a href=#>欢迎{{session('email')}}用户回来</a></div>
 	<div style="float:right;margin-right:30px"><a href="/logout?{{session('fid')}}">退出登录</a></div>
 	@else
 	<div style="float:right;margin-right:50px"><a href="/flogin">登录</a></div>

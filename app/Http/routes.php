@@ -26,7 +26,7 @@ Route::get('/', function () {
 Route::get('/Mall','homecontroller@Mall');
 
 //路由组限制登录
-Route::group(['middleware'=>'login'],function(){
+Route::group(['middleware'=>['login','Auth']],function(){
 	 //后台路由规则
 	 Route::get('/admins','admincontroller@index');
 
@@ -45,8 +45,16 @@ Route::group(['middleware'=>'login'],function(){
 	//后台商品管理
 	 Route::controller('admins/goods','goodscontroller');
 
+	 //轮播图管理
+	Route::controller('/lunbo','lunbocontroller');
 
+	 //后台角色管理
+	Route::controller('/Role','Rolecontroller');
+
+	//后台的权限管理
+	Route::controller('/Permission','Permissioncontroller');
 });
+
 //后台登录页面
 Route::get('/admins/login','logincontroller@login');
 
@@ -138,5 +146,9 @@ Route::group(['middleware'=>'flogin'],function(){
 //清除session测试
 Route::get('/clear','cartcontroller@clear');
 
-//轮播图管理
-Route::controller('/lunbo','lunbocontroller');
+
+
+
+
+
+

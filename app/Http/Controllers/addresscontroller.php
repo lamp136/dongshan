@@ -26,6 +26,7 @@ class addresscontroller extends Controller
         $address->user_id = session('fid');
 
         if($address->save()){
+             //dd($request->session()->all());
             return back();
         }else{
             return back();

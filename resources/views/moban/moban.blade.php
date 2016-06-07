@@ -96,7 +96,7 @@
                 </form>
               </div>
               <!-- Main Navigation -->
-              <div id="mws-navigation">
+              <div id="mws-navigation" class="user" res="{{session('res')}}">
                 <ul >
                   <li>
                     <a href="#">
@@ -111,25 +111,25 @@
                 </ul>
               </div>
 
-              <div id="mws-navigation">
+              <div id="mws-navigation" class="article">
                 <ul class="closed">
                   <li>
                     <a>
-                      <i class="icon-t-shirt"></i>分类管理</a>
+                      <i class="icon-t-shirt"></i>文章分类管理</a>
                     <ul class="closed">
                       <li>
-                        <a href="/admins/fenlei/add">分类添加</a></li>
+                        <a href="/admins/fenlei/add">文章分类添加</a></li>
                       <li>
-                        <a href="/admins/fenlei/index">分类列表</a></li>
+                        <a href="/admins/fenlei/index">文章分类列表</a></li>
                     </ul>
                   </li>
                 </ul>
               </div>
-                <div id="mws-navigation">
+                <div id="mws-navigation" class="article">
                 <ul class="closed">
                   <li>
                     <a>
-                      <i class="icon-file"></i>文章管理</a>
+                      <i class="icon-file" ></i>文章管理</a>
                     <ul class="closed">
                       <li>
                         <a href="/admins/article/add">文章添加</a></li>
@@ -140,7 +140,7 @@
                 </ul>
               </div>
 
-            <div id="mws-navigation">
+            <div id="mws-navigation" class='goods'>
                 <ul class="closed">
                   <li>
                     <a>
@@ -155,7 +155,7 @@
                 </ul>
               </div>
 
-              <div id="mws-navigation">
+              <div id="mws-navigation" class="goods">
                 <ul class="closed">
                   <li>
                     <a>
@@ -169,7 +169,7 @@
                   </li>
                 </ul>
               </div>
-              <div id="mws-navigation">
+              <div id="mws-navigation" class="images">
                 <ul class="closed">
                   <li>
                     <a>
@@ -179,6 +179,36 @@
                         <a href="/lunbo/add">添加图片</a></li>
                       <li>
                         <a href="/lunbo/index">图片列表</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+               <div id="mws-navigation" class="role">
+                <ul class="closed">
+                  <li>
+                    <a>
+                      <i class="icon-file"></i>角色管理</a>
+                    <ul class="closed">
+                      <li>
+                        <a href="/Role/add">添加角色</a></li>
+                      <li>
+                        <a href="/Role/index">角色列表</a></li>
+                        
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+              <div id="mws-navigation" class="permission">
+                <ul class="closed">
+                  <li>
+                    <a>
+                      <i class="icon-file"></i>权限管理</a>
+                    <ul class="closed">
+                      <li>
+                        <a href="/Permission/add">添加权限</a></li>
+                      <li>
+                        <a href="/Permission/index">权限列表</a></li>
+                        
                     </ul>
                   </li>
                 </ul>
@@ -228,6 +258,28 @@
             <script type="text/javascript">$(function() {
                 $.fn.tabs && $('.mws-tabs').tabs();
               });</script>
+
+            <!-- 检测登录用户权限 -->
+            <script type="text/javascript">
+                var res = $('.user').attr('res');
+                if(res=='goods'){
+                  $('.goods').siblings().css('display','none');
+                  $('.goods').show();
+                }
+
+                if(res=='article'){
+                  $('.article').siblings().css('display','none');
+                  $('.article').show();
+                }
+
+                if(res=='images'){
+                  $('.images').siblings().css('display','none');
+                  $('.images').show();
+                }
+
+            </script>
+            
+            @yield('myjs')
         </body>
         
  </html>

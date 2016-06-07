@@ -43,6 +43,8 @@
 			        </ul>
 			    </div>
 			@endif
+			
+
 			<div id="collapseOne" class="accordion-body collapse in" aria-expanded="true">
 				<div class="panel-body">
 					<form action="/order/create" id="" method="post">
@@ -60,14 +62,17 @@
 						
 						<div class="row">
 							<div class="col-md-12">
+
 								<input type="submit" value="提交订单" class="btn btn-primary pull-right push-bottom" data-loading-text="Loading...">
 							</div>
 						</div>
+						
 						{{csrf_field()}}
 					</form>
 				</div>
 			</div>
 		</div>
+				
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h4 class="panel-title">
