@@ -154,9 +154,16 @@ class logincontroller extends Controller
                 session(['fid'=>$data['id']]);
 
                 $request->session()->put('email',$res['email']);
+                
                 //如有有redirect就跳转到评论页面
-                $url = $request->input('redirect',"/Mall");
-                return redirect($url)->with('success','登录成功');
+                $url = $request->input('redirect');
+                if($url){
+                    return redirect($url)->with('success','登录成功');
+                }else{
+                    return redirect('/Mall')->with('success','登录成功');
+
+                }
+                
             }else{
                 return back()->with('error','密码不正确');
             }

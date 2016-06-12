@@ -97,7 +97,7 @@
 	<div><h2>热门商品</h2></div>
 	<ul class="products product-thumb-info-list" data-plugin-masonry="" style="position: relative; height: 1184px;">
 		@foreach($hotgoods as $k=>$v)
-		<li class="col-md-3 col-sm-6 col-xs-12 product" style="position: absolute; left: 0px; top: 25px;">
+		<li class="col-md-3 col-sm-6 col-xs-12 product" style="position: absolute; left: 0px; top: 25px;list-style:none;margin:10px 10px">
 			
 			<span class="product-thumb-info">
 				
@@ -108,7 +108,7 @@
 							<span class="product-thumb-info-act-right"><em><i class="fa fa-plus"></i>详情</em></span>
 						</span>
 
-						<img alt="" class="img-responsive" src="{{explode(',',$v['pic'])[0]}}">
+						<img alt="" class="img-responsive" src="{{explode(',',$v['pic'])[0]}}" width='100%'>
 					</span>
 				</a>
 				<span class="product-thumb-info-content">
@@ -131,7 +131,7 @@
 	<div><h2>新品上架</h2></div>
 	<ul class="products product-thumb-info-list" data-plugin-masonry="" style="position: relative; height: 1184px;">
 	@foreach($newgoods as $k=>$v)
-		<li class="col-md-3 col-sm-6 col-xs-12 product" style="position: absolute; left: 0px; top: 25px;list-style:none">
+		<li class="col-md-3 col-sm-6 col-xs-12 product" style="position: absolute; left: 0px; top: 25px;list-style:none;margin:10px 10px">
 			
 			<span class="product-thumb-info">
 				
