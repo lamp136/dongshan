@@ -62,7 +62,7 @@
                     <ul class="mws-form-list inline">
                         <li>
                             <input id="remember" type="checkbox"> 
-                            <label for="remember">记住我</label>
+                            <label for="remember">记住我哦</label>
                         </li>
                     </ul>
                 </div>
